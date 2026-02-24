@@ -2,7 +2,7 @@ name: Update README cards
 
 on:
   push:
-    branches: ["main"]
+    branches: ["web"]
   workflow_dispatch:
 
 jobs:
