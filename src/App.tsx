@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-// Подключаем шрифты
+// Load fonts
 const fontStyles = `
   @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
@@ -34,7 +34,6 @@ const fontStyles = `
     box-shadow: 0 0 5px white;
     font-size: clamp(0.9rem, 2.5vw, 1.2rem);
     margin: 0.5rem;
-    /* scale полностью удалён */
   }
 
   .cyber-button:hover {
@@ -42,7 +41,6 @@ const fontStyles = `
     border-color: #fc0004;
     color: #fc0004;
     box-shadow: 0 0 15px #fc0004;
-    /* без transform */
   }
 `;
 
@@ -54,7 +52,7 @@ const App: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [showUserInfo, setShowUserInfo] = useState(false);
 
-  // Максимально ускоренные задержки
+  // Fast delays for mobile-friendly quick boot
   const baseDotDelay = 100;
   const baseCheckDelay = 150;
   const baseShiftDelay = 200;
@@ -76,7 +74,7 @@ const App: React.FC = () => {
 
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-  // Полоса включения (0.3 с)
+  // Initial scanline animation (0.3s)
   useEffect(() => {
     if (booting) {
       const timer = setTimeout(() => {
@@ -87,7 +85,7 @@ const App: React.FC = () => {
     }
   }, [booting]);
 
-  // Загрузка пунктов
+  // Sequential boot steps
   useEffect(() => {
     if (currentIndex < 0 || currentIndex >= items.length) return;
 
@@ -177,7 +175,7 @@ const App: React.FC = () => {
     };
   }, [currentIndex]);
 
-  // Переключение на информацию пользователя
+  // After all items, show user info
   useEffect(() => {
     if (currentIndex >= items.length) {
       const timer = setTimeout(() => setShowUserInfo(true), 300);
@@ -185,9 +183,10 @@ const App: React.FC = () => {
     }
   }, [currentIndex]);
 
+  // Positioning for completed items (evenly spaced)
   const getCompletedTop = (index: number) => `${10 + index * 17.5}%`;
 
-  // Анимация включения
+  // Boot animation (red scanline)
   if (booting) {
     return (
       <>
@@ -239,7 +238,7 @@ const App: React.FC = () => {
         }}
       >
         {!showUserInfo ? (
-          // Экран загрузки с VT323
+          // Boot screen with VT323 font
           items.map((name, index) => {
             const step = steps[index];
             if (step === 0) return null;
@@ -281,25 +280,24 @@ const App: React.FC = () => {
             );
           })
         ) : (
-          // Карточка пользователя с пиксельным появлением (построчно)
-          <div className="absolute left-1/2 top-1/2" style={{ transform: 'translate(-50%, -50%)' }}>
+          // User info card + buttons below
+          <div className="absolute left-1/2 top-1/2" style={{ transform: 'translate(-50%, -50%)', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            {/* Info card */}
             <div
-              className="border-2 border-white p-8 bg-black text-white"
+              className="border-2 border-white bg-black text-white"
               style={{
                 fontFamily: '"Anta", sans-serif',
                 fontSize: 'clamp(1.2rem, 4vw, 2rem)',
                 boxShadow: '0 0 20px white',
-                minWidth: '400px',
-                maxWidth: '90vw',
+                width: 'clamp(300px, 90%, 600px)',
+                padding: '2rem',
               }}
             >
-              {/* Заголовок */}
               <div className="text-center text-3xl mb-4 font-bold pixel-reveal" style={{ animationDelay: '0s' }}>
                 INFO
               </div>
               <div className="w-full h-px bg-white my-3 pixel-reveal" style={{ animationDelay: '0.1s' }} />
 
-              {/* Строки данных */}
               <div className="space-y-2">
                 <div className="pixel-reveal" style={{ animationDelay: '0.2s' }}>
                   <span className="opacity-70 mr-3">{'>'}</span> Name: Jaroslav Blinkov
@@ -317,7 +315,6 @@ const App: React.FC = () => {
 
               <div className="w-full h-px bg-white my-4 pixel-reveal" style={{ animationDelay: '0.6s' }} />
 
-              {/* Статус без глитч-шрифта, просто Anta */}
               <div className="flex justify-end items-center pixel-reveal" style={{ animationDelay: '0.7s' }}>
                 <span className="opacity-70 mr-3">STATUS:</span>
                 <span
@@ -334,7 +331,7 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Кнопки без увеличения при наведении */}
+            {/* Buttons below the card */}
             <div className="flex flex-wrap justify-center gap-4 mt-8">
               <button className="cyber-button" onClick={() => window.open('https://t.me/username', '_blank')}>Telegram</button>
               <button className="cyber-button" onClick={() => window.open('https://discord.com/users/username', '_blank')}>Discord</button>
