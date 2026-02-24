@@ -38,7 +38,7 @@
     <div align="center">
         <a href="https://react.dev/"><img src="https://www.svgrepo.com/show/452092/react.svg" width="10%" margin="10px"></a>
         <a href="https://www.python.org/"><img src="https://www.svgrepo.com/show/374016/python.svg" width="10%" margin="10px"></a>
-        <a href="https://go.dev/"><img src="https://www.svgrepo.com/show/353795/go.svg" width="10%" margin="10px "></a>
+        <a href="https://go.dev/"><img src="https://www.svgrepo.com/show/353795/go.svg" width="10%" margin="10px"></a>
         <a href="https://nextjs.org/"><img src="https://www.svgrepo.com/show/369457/nextjs.svg" width="10%" margin="10px"></a>
         <a href="https://www.docker.com/"><img src="https://www.svgrepo.com/show/448221/docker.svg" width="10%" margin="10px"></a>
     </div>
