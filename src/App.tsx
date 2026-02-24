@@ -6,11 +6,6 @@ const fontStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap');
 
-  @keyframes scanline {
-    0% { top: -10%; }
-    100% { top: 100%; }
-  }
-
   @keyframes pixelReveal {
     0% { opacity: 0; }
     33% { opacity: 0.3; }
@@ -32,7 +27,7 @@ const fontStyles = `
     cursor: pointer;
     transition: all 0.2s;
     box-shadow: 0 0 5px white;
-    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    font-size: clamp(1rem, 3vw, 1.3rem);
     margin: 0.5rem;
   }
 
@@ -47,12 +42,11 @@ const fontStyles = `
 const items = ['CPU', 'GPU', 'RAM', 'ROM', 'BLOOD'];
 
 const App: React.FC = () => {
-  const [booting, setBooting] = useState(true);
   const [steps, setSteps] = useState<number[]>(items.map(() => 0));
-  const [currentIndex, setCurrentIndex] = useState(-1);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [showUserInfo, setShowUserInfo] = useState(false);
 
-  // Fast delays for mobile-friendly quick boot
+  // Fast delays
   const baseDotDelay = 100;
   const baseCheckDelay = 150;
   const baseShiftDelay = 200;
@@ -74,21 +68,11 @@ const App: React.FC = () => {
 
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-  // Initial scanline animation (0.3s)
-  useEffect(() => {
-    if (booting) {
-      const timer = setTimeout(() => {
-        setBooting(false);
-        setCurrentIndex(0);
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [booting]);
-
   // Sequential boot steps
   useEffect(() => {
-    if (currentIndex < 0 || currentIndex >= items.length) return;
+    if (currentIndex >= items.length) return;
 
+    // Show the current item's label
     setSteps(prev => {
       const newSteps = [...prev];
       newSteps[currentIndex] = 1;
@@ -186,46 +170,11 @@ const App: React.FC = () => {
   // Positioning for completed items (evenly spaced)
   const getCompletedTop = (index: number) => `${10 + index * 17.5}%`;
 
-  // Boot animation (red scanline)
-  if (booting) {
-    return (
-      <>
-        <style>{fontStyles}</style>
-        <div className="w-full h-screen bg-black relative overflow-hidden">
-          <div
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: '20px',
-              background: 'radial-gradient(ellipse at center, #fc0004 0%, transparent 80%)',
-              filter: 'blur(4px)',
-              opacity: 0.6,
-              animation: 'scanline 0.3s linear forwards',
-              pointerEvents: 'none',
-            }}
-          />
-          <div
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: '8px',
-              background: '#fc0004',
-              boxShadow: '0 0 30px #fc0004',
-              clipPath: 'polygon(2% 0%, 98% 0%, 96% 100%, 4% 100%)',
-              animation: 'scanline 0.3s linear forwards',
-              pointerEvents: 'none',
-            }}
-          />
-        </div>
-      </>
-    );
-  }
-
   return (
     <>
       <style>{fontStyles}</style>
       <div
-        className="w-full h-screen relative overflow-hidden"
+        className="fixed inset-0 overflow-hidden"
         style={{
           backgroundColor: 'black',
           ...(showUserInfo && {
@@ -320,7 +269,7 @@ const App: React.FC = () => {
                 <span
                   style={{
                     fontFamily: '"Anta", sans-serif',
-                    fontSize: '2.2rem',
+                    fontSize: 'clamp(1.5rem, 6vw, 2.2rem)',
                     lineHeight: 1,
                     color: 'white',
                     textShadow: '0 0 8px white',
@@ -333,10 +282,10 @@ const App: React.FC = () => {
 
             {/* Buttons below the card */}
             <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <button className="cyber-button" onClick={() => window.open('https://t.me/username', '_blank')}>Telegram</button>
-              <button className="cyber-button" onClick={() => window.open('https://discord.com/users/username', '_blank')}>Discord</button>
-              <button className="cyber-button" onClick={() => window.open('https://github.com/username', '_blank')}>Github</button>
-              <button className="cyber-button" onClick={() => window.open('https://anonask.com/username', '_blank')}>AnonAsk</button>
+              <button className="cyber-button" onClick={() => window.open('https://t.me/Bl1tz2200', '_blank')}>Telegram</button>
+              <button className="cyber-button" onClick={() => window.open('https://discord.gg/NdknV3FU', '_blank')}>Discord</button>
+              <button className="cyber-button" onClick={() => window.open('https://github.com/bl1tz2200', '_blank')}>Github</button>
+              <button className="cyber-button" onClick={() => window.open('https://t.me/anonaskbot?start=nwak452ygk5lkzb', '_blank')}>AnonAsk</button>
             </div>
           </div>
         )}
