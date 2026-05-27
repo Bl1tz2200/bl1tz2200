@@ -285,7 +285,7 @@ const App: React.FC = () => {
               <button className="cyber-button" onClick={() => window.open('https://t.me/Bl1tz2200', '_blank')}>Telegram</button>
               <button className="cyber-button" onClick={() => window.open('https://discord.gg/NdknV3FU', '_blank')}>Discord</button>
               <button className="cyber-button" onClick={() => window.open('https://github.com/bl1tz2200', '_blank')}>Github</button>
-              <button className="cyber-button" onClick={() => window.open('https://t.me/anonaskbot?start=nwak452ygk5lkzb', '_blank')}>AnonAsk</button>
+              <button className="cyber-button" onClick={() => window.open('https://www.instagram.com/bl1tz2200?igsh=bzdoc2prdWZmeTFx', '_blank')}>Instargam</button>
             </div>
           </div>
         )}
